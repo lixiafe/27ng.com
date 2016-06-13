@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var models = require('../models');
+var util = require('../util');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -20,6 +21,7 @@ router.post('/reg', function(req, res, next) {
     if(user.password != user.repassword){
         res.redirect('back');
     }else{
+        req.body.password = util.md5(req.body.password);
         models.User.create(req.body, function(err, doc){
             console.log(doc);
             res.redirect('/users/login');
@@ -29,7 +31,7 @@ router.post('/reg', function(req, res, next) {
 
 router.post('/login', function(req, res, next) {
     var username = req.body.username;
-    var password = req.body.password;
+    var password = util.md5(req.body.password);
     models.User.findOne({username: username, password: password}, function(error, doc){
         if(error){
             res.redirect('back'); //如果登录出错了,重新登录，这点体验要改
