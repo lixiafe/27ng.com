@@ -1,10 +1,15 @@
 <%- include ../include/header %>
 
 <div id="login-box">
-    <form action="/user/reg" method="post">
+    <form action="/users/reg" method="post">
         <input type="text" name="username" value="" placeholder="手机号/用户名/邮箱">
-        <input type="text" name="password" value="" placeholder="密码">
+        <br>
         <input type="text" name="email" value="" placeholder="邮箱">
+        <br>
+        <input type="text" name="password" value="" placeholder="密码">
+        <br>
+        <input type="text" name="repassword" value="" placeholder="确认密码">
+        <br>
         <input type="submit" value="注册">
     </form>
 </div>
