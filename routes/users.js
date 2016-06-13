@@ -37,6 +37,8 @@ router.post('/login', function(req, res, next) {
             res.redirect('back'); //如果登录出错了,重新登录，这点体验要改
         }else{
             if(doc){
+                //登录成功后把查询到的user用户赋给session的user属性
+                req.session.user = doc;
                 res.redirect('/');
             }else{
                 res.redirect('back');
@@ -46,7 +48,8 @@ router.post('/login', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
-    res.render('index', { title: '退出 - 爱去宁国' });
+    req.session.user = null;
+    res.redirect('/');
 });
 
 module.exports = router;
