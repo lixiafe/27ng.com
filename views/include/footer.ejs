@@ -1,7 +1,18 @@
 <div id="footer" class="w980">
     <span>27NG.COM - 爱去宁国 - </span>
-    <a href="/users/login" id="user-login">登录</a>
-    <a href="/users/reg" id="user-reg">注册</a>
+    <%
+        if(user){
+    %>
+        <a href="/users" id="user-admin"><%= user.username %></a>
+        <a href="/users/logout" id="user-logout">退出</a>
+    <%
+        }else{
+    %>
+            <a href="/users/login" id="user-login">登录</a>
+            <a href="/users/reg" id="user-reg">注册</a>
+    <%
+        }
+    %>
     <br /> Copyleft &copy; 2016 <b><a href="http://www.27ng.com" target="_blank">爱去宁国</a>(www.27ng.com)</b> All OpenContent 皖ICP备14009209号-1
     <br />
 </div>
