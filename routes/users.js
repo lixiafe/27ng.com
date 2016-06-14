@@ -1,14 +1,18 @@
 var express = require('express');
-var router = express.Router();
 var models = require('../models');
 var util = require('../util');
+var auth = require('../middleware/auth');
+
+//路由实例
+var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', auth.checkLogin, function(req, res, next) {
   res.send('个人中心页');
 });
 
-router.get('/reg', function(req, res, next) {
+//注册
+router.get('/reg', auth.checkNotLogin, function(req, res, next) {
   res.render('user/reg', { title: '注册 - 爱去宁国' });
 });
 
@@ -16,7 +20,7 @@ router.get('/login', function(req, res, next) {
     res.render('user/login', { title: '登录 - 爱去宁国' });
 });
 
-router.post('/reg', function(req, res, next) {
+router.post('/reg', auth.checkNotLogin, function(req, res, next) {
     var user = req.body;
     if(user.password != user.repassword){
         res.redirect('back');
@@ -34,7 +38,7 @@ router.post('/reg', function(req, res, next) {
     }
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/login', auth.checkNotLogin, function(req, res, next) {
     var username = req.body.username;
     var password = util.md5(req.body.password);
     models.User.findOne({username: username, password: password}, function(error, doc){
@@ -55,7 +59,7 @@ router.post('/login', function(req, res, next) {
     });
 });
 
-router.get('/logout', function(req, res, next) {
+router.get('/logout', auth.checkLogin, function(req, res, next) {
     req.session.user = null;
     req.flash('success', '退出成功');
     res.redirect('/');
