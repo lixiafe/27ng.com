@@ -22,12 +22,14 @@ router.get('/login', function(req, res, next) {
 
 router.post('/reg', auth.checkNotLogin, function(req, res, next) {
     var user = req.body;
+    console.log(user);
     if(user.password != user.repassword){
         res.redirect('back');
     }else{
         req.body.password = util.md5(req.body.password);
+        //增加用户头像
+        req.body.avatar = 'http://s.gravatar.com/avatar/'+ util.md5(req.body.email) +'?s=48';
         models.User.create(req.body, function(error, doc){
-            console.log(doc);
             if(error){
                 req.flash('error', '注册失败');
             }else{
