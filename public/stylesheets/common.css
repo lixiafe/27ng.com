@@ -92,4 +92,24 @@ width:90px;
 .alert-success { color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6; }
 .alert-danger { color: #a94442; background-color: #f2dede; border-color: #ebccd1; }
 
+.media, .media-body {
+	overflow: hidden;
+	zoom: 1;
+	margin-top:10px;
+}
+.media-body, .media-left, .media-right {
+	display: table-cell;
+	vertical-align: top;
+}
+.media-left, .media>.pull-left {
+	padding-right: 10px;
+}
+.media-object {
+	display: block;
+}
+.media-heading {
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+
 

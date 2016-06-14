@@ -16,27 +16,18 @@ var UserSchema = new mongoose.Schema({
     email: String,
     avatar: String
 });
-
 var UserModel = db.model('users', UserSchema);
 //users 如果不写s, mongodb会自动加上, 合的名称 person -> people
 
-// var userEntity = new UserModel({
-//     username: "lixia",
-//     password: 6,
-//     email: "lixia@qq.com"
-// });
-//
-// console.log(userEntity.username);
-// console.log(userEntity.password);
-// console.log(userEntity.email);
-//
-// userEntity.save(function(error,doc){
-//     if(error){
-//         console.log("error :" + error);
-//     }else{
-//         console.log(doc);
-//     }
-// });
+var ObjectId = mongoose.Schema.Types.ObjectId;
+var ArticleSchema = new mongoose.Schema({
+    //是一个对象ID类型,引用用户模型
+    user: {type: ObjectId, ref: 'users'},
+    content: String,
+    createAt: {type: Date, default: Date.now()}
+});
+var ArticleModel = db.model('Articles', ArticleSchema);
 
 //User 是模型
 exports.User = UserModel;
+exports.Article = ArticleModel;
