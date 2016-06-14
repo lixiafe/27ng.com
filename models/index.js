@@ -13,7 +13,8 @@ db.connection.on('open', function(){
 var UserSchema = new mongoose.Schema({
     username: String,
     password: String,
-    email: String
+    email: String,
+    avatar: String
 });
 
 var UserModel = db.model('users', UserSchema);
