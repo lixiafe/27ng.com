@@ -34,3 +34,19 @@
         </ul>
     </div>
 </div>
+<div class="w980">
+    <%
+        if(success){
+    %>
+            <div class="alert alert-success"><%= success %></div>
+    <%
+        }
+    %>
+    <%
+        if(error){
+    %>
+            <div class="alert alert-danger"><%= error %></div>
+    <%
+        }
+    %>
+</div>
