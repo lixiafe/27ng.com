@@ -1,4 +1,5 @@
 var express = require('express');
+var markdown = require('markdown').markdown;
 var models = require('../models');
 var auth = require('../middleware/auth');
 var router = express.Router();
@@ -7,6 +8,9 @@ router.get('/list', auth.checkLogin, function(req, res, next) {
     //第一个参数是查询条件
     // 先查找, 把user字符串 - > 对象  mongoose帮我们做
     models.Article.find({}).populate('user').exec(function(error, articles){
+        articles.forEach(function(article){
+            article.content = markdown.toHTML(article.content);
+        });
         res.render('article/list', { title: '文章列表 - 爱去宁国', articles: articles });
     });
 });
