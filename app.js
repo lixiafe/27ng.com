@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');//session中间件, req.session, 依赖cookieParser
 var MongoStore = require('connect-mongo')(session);
 var config = require('./config');
+var flash = require('connect-flash');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -32,11 +33,14 @@ app.use(session({
     url: config.dbUrl
   })
 }));
+app.use(flash());
 app.use(function(req, res, next){
   //res.locals是模版渲染的对象, ejs里的对象传的的是
   //app.render = function(name, options, callback){}
   //merge(renderOptions, this.locals);
   res.locals.user = req.session.user;
+  res.locals.success = req.flash('success').toString();
+  res.locals.error = req.flash('error').toString();
   next();
 });
 app.use(express.static(path.join(__dirname, 'public')));
