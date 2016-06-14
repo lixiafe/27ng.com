@@ -22,9 +22,14 @@ router.post('/reg', function(req, res, next) {
         res.redirect('back');
     }else{
         req.body.password = util.md5(req.body.password);
-        models.User.create(req.body, function(err, doc){
+        models.User.create(req.body, function(error, doc){
             console.log(doc);
-            res.redirect('/users/login');
+            if(error){
+                req.flash('error', '注册失败');
+            }else{
+                req.flash('success', '注册成功');
+                res.redirect('/users/login');
+            }
         });
     }
 });
@@ -34,13 +39,16 @@ router.post('/login', function(req, res, next) {
     var password = util.md5(req.body.password);
     models.User.findOne({username: username, password: password}, function(error, doc){
         if(error){
+            req.flash('error', '登录失败');
             res.redirect('back'); //如果登录出错了,重新登录，这点体验要改
         }else{
             if(doc){
                 //登录成功后把查询到的user用户赋给session的user属性
                 req.session.user = doc;
+                req.flash('success', '登录成功');
                 res.redirect('/');
             }else{
+                req.flash('error', '登录失败');
                 res.redirect('back');
             }
         }
@@ -49,6 +57,7 @@ router.post('/login', function(req, res, next) {
 
 router.get('/logout', function(req, res, next) {
     req.session.user = null;
+    req.flash('success', '退出成功');
     res.redirect('/');
 });
 
