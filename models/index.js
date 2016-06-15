@@ -24,6 +24,7 @@ var ArticleSchema = new mongoose.Schema({
     //是一个对象ID类型,引用用户模型
     user: {type: ObjectId, ref: 'users'},
     content: String,
+    poster: String, //增加了图片字段
     createAt: {type: Date, default: Date.now()}
 });
 var ArticleModel = db.model('Articles', ArticleSchema);
