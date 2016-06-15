@@ -22,8 +22,8 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());//处理content-type=json的请求体{"name":"lx"}
+app.use(bodyParser.urlencoded({ extended: false }));//处理content-type=urlencoded的请求体 | extended为true表示使用querystring来将请求体的字符串转成对象
 app.use(cookieParser());
 app.use(session({
   secret: '27ng',//加密的字符串
