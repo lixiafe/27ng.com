@@ -6,10 +6,7 @@
         <div class="media w980">
             <div class="media-left">
                 <a href="#">
-                    <img class="media-object" src="<%= article.user.avatar %>" alt="用户头像">
-                </a>
-                <a href="#">
-                    <img class="media-object" src="<%= article.poster %>" alt="文章图片">
+                    <img class="media-object" src="/images/user-default.png" alt="用户头像">
                 </a>
             </div>
             <div class="media-body">
@@ -19,6 +16,7 @@
                     <span class="publish-time"><%= article.createAt.toLocaleString() %></span>
                 </h4>
                 <p><%- article.content %></p>
+                <img class="media-object" src="<%= article.poster %>" alt="文章图片">
             </div>
         </div>
 <%

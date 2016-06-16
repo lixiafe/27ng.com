@@ -4,7 +4,10 @@
     <form action="/articles/add" method="post" enctype="multipart/form-data">
         <textarea name="content"  id="content" cols="30" rows="10"></textarea>
         <br>
-        <input type="file" name="poster">
+        <label for="article-img">图片</label>
+        <br>
+        <br>
+        <input type="file" name="poster" id="article-img">
         <br>
         <br>
         <input type="submit" value="发表文章">
