@@ -1,5 +1,12 @@
 <%- include ../include/header %>
 
+<div class="">
+    <form action="/articles/list" method="get">
+        <input type="text" placeholder="请输入关键字" name="q" value="<%= q %>">
+        <input type="submit"value="搜索">
+    </form>
+</div>
+
 <%
     articles.forEach(function(article){
 %>
@@ -10,13 +17,20 @@
                 </a>
             </div>
             <div class="media-body">
-                <h4 class="media-heading">
+                <p class="media-heading">
                     <span class="publisher">作者: <%= article.user.username %></span>
-                    <span>发表时间: </span>
-                    <span class="publish-time"><%= article.createAt.toLocaleString() %></span>
-                </h4>
+                </p>
+                <h4><span class="title">标题: </span><%- article.title %></h4>
                 <p><%- article.content %></p>
-                <img class="media-object" src="<%= article.poster %>" alt="文章图片">
+
+                <%
+                    if(article.poster){
+                %>
+                        <img class="media-object" src="<%= article.poster %>" alt="文章图片">
+                <%
+                    }
+                %>
+                <span class="publish-time"><%= article.createAt.toLocaleString() %></span>
             </div>
         </div>
 <%

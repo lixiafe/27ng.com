@@ -23,6 +23,7 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var ArticleSchema = new mongoose.Schema({
     //是一个对象ID类型,引用用户模型
     user: {type: ObjectId, ref: 'users'},
+    title: String,//文章标题
     content: String,
     poster: String, //增加了图片字段
     createAt: {type: Date, default: Date.now()}

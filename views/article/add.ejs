@@ -2,14 +2,13 @@
 
 <div id="login-box">
     <form action="/articles/add" method="post" enctype="multipart/form-data">
-        <textarea name="content"  id="content" cols="30" rows="10"></textarea>
-        <br>
+        <input type="text" placeholder="文章标题" name="title">
+        <br><br>
+        <textarea name="content"  id="content" cols="30" rows="10" placeholder="请输入文章内容"></textarea>
+        <br><br>
         <label for="article-img">图片</label>
-        <br>
-        <br>
         <input type="file" name="poster" id="article-img">
-        <br>
-        <br>
+        <br><br>
         <input type="submit" value="发表文章">
     </form>
 </div>
