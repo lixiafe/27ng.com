@@ -21,13 +21,15 @@ router.get('/list', auth.checkLogin, function(req, res, next) {
     // 先查找, 把user字符串 - > 对象  mongoose帮我们做
 
     var q = req.query.q;
+    var pageNum = req.query.pageNum;
+    var pageSize = req.query.pageSize;
     var queryObj = {};
     if(q){
         var reg = new RegExp(q, 'i');
         queryObj = {$or: [{title: reg}, {content: reg}]};
     }
 
-    models.Article.find(queryObj).populate('user').exec(function(error, articles){
+    models.Article.find(queryObj).skip((pageNum-1)*pageSize).limit(pageSize).populate('user').exec(function(error, articles){
         articles.forEach(function(article){
             article.content = markdown.toHTML(article.content);
         });
