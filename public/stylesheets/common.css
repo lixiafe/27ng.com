@@ -87,11 +87,13 @@ width:90px;
 .searchLabel{ margin-left:10px;}
 #search{width:124px;}
 
+/*注册*/
 #login-box{position: fixed; width: 500px; height: 300px; left: 0; top: 0; right: 0; bottom: 0; margin: auto; border: 1px solid #000; background-color: #fff; }
+/*提示框*/
 .alert { padding: 15px; border: 1px solid transparent; border-radius: 4px; }
 .alert-success { color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6; }
 .alert-danger { color: #a94442; background-color: #f2dede; border-color: #ebccd1; }
-
+/*文章*/
 .media, .media-body {
 	overflow: hidden;
 	zoom: 1;
@@ -111,5 +113,9 @@ width:90px;
 	margin-top: 0;
 	margin-bottom: 5px;
 }
+
+/*分页*/
+.pagination li{float: left; padding: 0 10px;}
+.pagination .active a{ color: #f00; }
 
 

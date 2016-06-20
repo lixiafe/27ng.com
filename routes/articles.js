@@ -21,8 +21,8 @@ router.get('/list', auth.checkLogin, function(req, res, next) {
     // 先查找, 把user字符串 - > 对象  mongoose帮我们做
 
     var q = req.query.q;
-    var pageNum = req.query.pageNum;
-    var pageSize = req.query.pageSize;
+    var pageNum = parseInt(req.query.pageNum) || 1;
+    var pageSize = 3;
     var queryObj = {};
     if(q){
         var reg = new RegExp(q, 'i');
@@ -30,10 +30,24 @@ router.get('/list', auth.checkLogin, function(req, res, next) {
     }
 
     models.Article.find(queryObj).skip((pageNum-1)*pageSize).limit(pageSize).populate('user').exec(function(error, articles){
+
         articles.forEach(function(article){
             article.content = markdown.toHTML(article.content);
         });
-        res.render('article/list', { title: '文章列表 - 爱去宁国', articles: articles, q: q });
+
+        //取得这个条件有多少条符合的数据
+        models.Article.count(queryObj, function(error, count){
+            res.render('article/list', {
+                title: '文章列表 - 爱去宁国',
+                articles: articles,
+                q: q,
+                totalPage: Math.ceil(count/pageSize),
+                pageNum: pageNum,
+                pageSize: pageSize
+            });
+        });
+
+
     });
 });
 
@@ -49,7 +63,7 @@ router.post('/add', auth.checkLogin, upload.single('poster'), function(req, res,
         }else{
             req.flash('success', '文章发表成功');
         }
-        res.redirect('/');
+        res.redirect('/article/list');
     });
 });
 

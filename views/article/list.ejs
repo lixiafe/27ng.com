@@ -2,8 +2,8 @@
 
 <div class="">
     <form action="/articles/list" method="get">
-        <input type="text" placeholder="请输入关键字" name="q" value="<%= q %>">
-        <input type="submit"value="搜索">
+        <input type="text" id="q" name="q" value="<%= q %>" placeholder="请输入关键字" >
+        <input type="submit" value="搜索">
     </form>
 </div>
 
@@ -37,8 +37,31 @@
     });
 %>
 
-<ul>
-    <li><a href=""></a></li>
+<ul class="pagination w980">
+    <%
+        if(pageNum > 1){
+    %>
+            <li><a href="/articles/list?q=<%= q %>&pageNum=<%= pageNum-1 %>">&lt;</a></li>
+    <%
+        }
+    %>
+
+
+    <%
+        for(var i=1; i<=totalPage; i++){
+    %>
+            <li class="<%= i == pageNum ? 'active' : '' %>"><a href="/articles/list?q=<%= q %>&pageNum=<%= i %>"><%= i %></a></li>
+    <%
+        }
+    %>
+
+    <%
+        if(pageNum < totalPage){
+    %>
+            <li><a href="/articles/list?q=<%= q %>&pageNum=<%= pageNum+1 %>">&gt;</a></li>
+    <%
+        }
+    %>
 </ul>
 
 <%- include ../include/footer %>
