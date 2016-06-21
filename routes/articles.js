@@ -51,6 +51,10 @@ router.get('/list', auth.checkLogin, function(req, res, next) {
     });
 });
 
+router.get('/post', auth.checkLogin, function(req, res, next) {
+    res.render('article/add', { title: '发表文章' });
+});
+
 router.post('/add', auth.checkLogin, upload.single('poster'), function(req, res, next) {
     var article = req.body;
     article.user = req.session.user._id;//把当前登录的用户的ID赋给user
@@ -67,8 +71,16 @@ router.post('/add', auth.checkLogin, upload.single('poster'), function(req, res,
     });
 });
 
-router.get('/post', auth.checkLogin, function(req, res, next) {
-    res.render('article/add', { title: '发表文章' });
+router.get('/detail/:_id', function(req, res){
+    var _id = req.params._id;
+    models.Article.findById(_id, function(err, article){
+        res.render('article/detail', {
+            title: article.title + ' - 爱去宁国',
+            article: article
+        });
+    })
 });
+
+
 
 module.exports = router;

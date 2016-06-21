@@ -20,7 +20,10 @@
                 <p class="media-heading">
                     <span class="publisher">作者: <%= article.user.username %></span>
                 </p>
-                <h4><span class="title">标题: </span><%- article.title %></h4>
+                <h4>
+                    <span class="title">标题: </span>
+                    <a href="/articles/detail/<%= article._id %>"><%= article._id %><%= article.title %></a>
+                </h4>
                 <p><%- article.content %></p>
 
                 <%
