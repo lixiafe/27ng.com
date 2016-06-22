@@ -46,39 +46,77 @@ router.get('/list', auth.checkLogin, function(req, res, next) {
                 pageSize: pageSize
             });
         });
-
-
     });
 });
 
 router.get('/post', auth.checkLogin, function(req, res, next) {
-    res.render('article/add', { title: '发表文章' });
+    res.render('article/add', { title: '发表文章', article: {} });
 });
 
 router.post('/add', auth.checkLogin, upload.single('poster'), function(req, res, next) {
     var article = req.body;
-    article.user = req.session.user._id;//把当前登录的用户的ID赋给user
-    if(req.file){
-        article.poster = path.join('/uploads', req.file.filename);
-    }
-    models.Article.create(article, function(error, doc){
-        if(error){
-            req.flash('error', '文章发表失败');
-        }else{
-            req.flash('success', '文章发表成功');
+    var _id = article._id;
+    if(_id){
+        var updateObj = {
+            title: article.title,
+            content: article.content
+        };
+        if(req.file){
+            updateObj.poster = path.join('/uploads', req.file.filename);
         }
-        res.redirect('/article/list');
-    });
+
+        models.Article.update({_id: _id}, {$set:updateObj}, function(err, result){
+            if(err){
+                req.flash('error', '文章更新失败');
+            }else{
+                req.flash('success', '文章更新成功');
+                res.redirect('/articles/list');
+            }
+        });
+    }else{
+        article.user = req.session.user._id;//把当前登录的用户的ID赋给user
+        if(req.file){
+            article.poster = path.join('/uploads', req.file.filename);
+        }
+        models.Article.create(article, function(error, doc){
+            if(error){
+                req.flash('error', '文章发表失败');
+            }else{
+                req.flash('success', '文章发表成功');
+            }
+            res.redirect('/articles/list');
+        });
+    }
 });
 
 router.get('/detail/:_id', function(req, res){
     var _id = req.params._id;
     models.Article.findById(_id, function(err, article){
+        article.content = markdown.toHTML(article.content);
         res.render('article/detail', {
             title: article.title + ' - 爱去宁国',
             article: article
         });
-    })
+    });
+});
+
+router.get('/delete/:_id', function(req, res){
+    var _id = req.params._id;
+    models.Article.remove({_id: _id}, function(err, result){
+        req.flash('success', '文章删除成功');
+        res.redirect('/articles/list');
+    });
+});
+
+router.get('/edit/:_id', function(req, res){
+    var _id = req.params._id;
+    models.Article.findById(_id, function(err, article){
+        //article.content = markdown.toHTML(article.content);
+        res.render('article/add', {
+            title: '修改文章 - 爱去宁国',
+            article: article
+        })
+    });
 });
 
 
