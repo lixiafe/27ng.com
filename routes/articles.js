@@ -92,12 +92,14 @@ router.post('/add', auth.checkLogin, upload.single('poster'), function(req, res,
 
 router.get('/detail/:_id', function(req, res){
     var _id = req.params._id;
-    models.Article.findById(_id).populate('user').populate('comments.user').exec(function(err, article){
-        console.log(article);
-        article.content = markdown.toHTML(article.content);
-        res.render('article/detail', {
-            title: article.title + ' - 爱去宁国',
-            article: article
+    models.Article.update({_id: _id}, {$inc: {pv: 1}}, function(err, result){
+        models.Article.findById(_id).populate('user').populate('comments.user').exec(function(err, article){
+            console.log(article);
+            article.content = markdown.toHTML(article.content);
+            res.render('article/detail', {
+                title: article.title + ' - 爱去宁国',
+                article: article
+            });
         });
     });
 });

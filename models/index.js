@@ -30,7 +30,8 @@ var ArticleSchema = new mongoose.Schema({
         content:String,
         createAt:{type: Date, default:Date.now()}
     }],
-    createAt: {type: Date, default: Date.now()}
+    createAt: {type: Date, default: Date.now()},
+    pv: {type: Number, default: 0}
 });
 var ArticleModel = db.model('Articles', ArticleSchema);
 
