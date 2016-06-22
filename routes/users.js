@@ -29,6 +29,7 @@ router.post('/reg', auth.checkNotLogin, function(req, res, next) {
         req.body.password = util.md5(req.body.password);
         //增加用户头像
         req.body.avatar = 'http://s.gravatar.com/avatar/'+ util.md5(req.body.email) +'?s=48';
+        //req.body.avatar = '/images/user-default.png';
         models.User.create(req.body, function(error, doc){
             if(error){
                 req.flash('error', '注册失败');

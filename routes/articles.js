@@ -80,6 +80,7 @@ router.post('/add', auth.checkLogin, upload.single('poster'), function(req, res,
         }
         models.Article.create(article, function(error, doc){
             if(error){
+                console.log(error);
                 req.flash('error', '文章发表失败');
             }else{
                 req.flash('success', '文章发表成功');
@@ -91,7 +92,8 @@ router.post('/add', auth.checkLogin, upload.single('poster'), function(req, res,
 
 router.get('/detail/:_id', function(req, res){
     var _id = req.params._id;
-    models.Article.findById(_id, function(err, article){
+    models.Article.findById(_id).populate('user').populate('comments.user').exec(function(err, article){
+        console.log(article);
         article.content = markdown.toHTML(article.content);
         res.render('article/detail', {
             title: article.title + ' - 爱去宁国',
@@ -119,6 +121,19 @@ router.get('/edit/:_id', function(req, res){
     });
 });
 
+router.post('/comment', auth.checkLogin, function(req, res){
+    var user = req.session.user;
+    console.log(user);
+    models.Article.update({_id: req.body._id}, {$push:{comments:{user:user._id, content: req.body.content, createAt: Date.now()}}}, function(err, result){
+        if(err){
+            req.flash('error', err);
+            return res.redirect('back');
+        }
+        console.log(result);
+        req.flash('success', '评论成功');
+        res.redirect('back');
+    });
+});
 
 
 module.exports = router;

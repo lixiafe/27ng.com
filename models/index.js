@@ -16,8 +16,7 @@ var UserSchema = new mongoose.Schema({
     email: String,
     avatar: String
 });
-var UserModel = db.model('users', UserSchema);
-//users 如果不写s, mongodb会自动加上, 合的名称 person -> people
+var UserModel = db.model('users', UserSchema);//users 如果不写s, mongodb会自动加上, 合的名称 person -> people
 
 var ObjectId = mongoose.Schema.Types.ObjectId;
 var ArticleSchema = new mongoose.Schema({
@@ -26,6 +25,11 @@ var ArticleSchema = new mongoose.Schema({
     title: String,//文章标题
     content: String,
     poster: String, //增加了图片字段
+    comments: [{
+        user:{type:ObjectId, ref:'users'},   //用户名
+        content:String,
+        createAt:{type: Date, default:Date.now()}
+    }],
     createAt: {type: Date, default: Date.now()}
 });
 var ArticleModel = db.model('Articles', ArticleSchema);

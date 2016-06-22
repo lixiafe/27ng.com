@@ -10,6 +10,47 @@
             <a href="/articles/delete/<%= article._id %>">删除</a>
         </div>
     </div>
+
+    <div>
+        <div>评论列表</div>
+        <ul class="comment-list">
+            <%
+                article.comments.forEach(function(comment){
+            %>
+                    <li>
+                        <div class="medea">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object" src="<%= comment.user.avatar %>" alt="用户头像">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <p class="media-heading">
+                                    <span class="publisher">作者: <%= comment.user.username %></span>
+                                </p>
+                                <h4><%= comment.content %></h4>
+                                <span class="publish-time"><%= comment.createAt.toLocaleString() %></span>
+                            </div>
+                        </div>
+                    </li>
+            <%
+                });
+            %>
+        </ul>
+    </div>
+    <p>``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````</p>
+    <p>``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````</p>
+    <p>``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````</p>
+    <div>
+        <form action="/articles/comment" method="post">
+            <label for="">评论</label>
+            <input type="hidden" value="<%= article._id %>" name="_id">
+            <br>
+            <textarea name="content" id="" cols="30" rows="10"></textarea>
+            <br>
+            <input type="submit" value="提交">
+        </form>
+    </div>
 </div>
 
 <%- include ../include/footer %>

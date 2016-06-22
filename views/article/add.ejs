@@ -2,7 +2,7 @@
 
 <div class="w980">
     <form action="/articles/add" method="post" enctype="multipart/form-data">
-        <input type="text" name="_id" value="<%= article._id %>">
+        <input type="hidden" name="_id" value="<%= article._id %>">
         <input type="text" placeholder="文章标题" name="title" value="<%= article.title %>">
         <br><br>
         <textarea name="content"  id="content" cols="30" rows="10" placeholder="请输入文章内容"><%= article.content %></textarea>
