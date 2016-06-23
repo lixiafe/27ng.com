@@ -74,6 +74,7 @@ router.post('/add', auth.checkLogin, upload.single('poster'), function(req, res,
             }
         });
     }else{
+        delete req.body._id;
         article.user = req.session.user._id;//把当前登录的用户的ID赋给user
         if(req.file){
             article.poster = path.join('/uploads', req.file.filename);
