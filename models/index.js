@@ -35,6 +35,20 @@ var ArticleSchema = new mongoose.Schema({
 });
 var ArticleModel = db.model('Articles', ArticleSchema);
 
+var CategorySchema = new mongoose.Schema({
+    name: String,
+    meta: String,
+    url: String,
+    list: [{
+        name: String,
+        meta: String,
+        url: String,
+        hot: String
+    }]
+});
+var CategoryModel = db.model('Categories', CategorySchema);
+
 //User 是模型
 exports.User = UserModel;
 exports.Article = ArticleModel;
+exports.Category = CategoryModel;
