@@ -10,6 +10,7 @@ db.connection.on('open', function(){
     console.log('数据库连接成功');
 });
 
+// 用户
 var UserSchema = new mongoose.Schema({
     username: String,
     password: String,
@@ -19,9 +20,10 @@ var UserSchema = new mongoose.Schema({
 var UserModel = db.model('users', UserSchema);//users 如果不写s, mongodb会自动加上, 合的名称 person -> people
 
 var ObjectId = mongoose.Schema.Types.ObjectId;
+
+// 文章
 var ArticleSchema = new mongoose.Schema({
-    //是一个对象ID类型,引用用户模型
-    user: {type: ObjectId, ref: 'users'},
+    user: {type: ObjectId, ref: 'users'},//是一个对象ID类型,引用用户模型
     title: String,//文章标题
     content: String,
     poster: String, //增加了图片字段
@@ -35,6 +37,7 @@ var ArticleSchema = new mongoose.Schema({
 });
 var ArticleModel = db.model('Articles', ArticleSchema);
 
+// 分类
 var CategorySchema = new mongoose.Schema({
     name: String,
     meta: String,
@@ -48,7 +51,26 @@ var CategorySchema = new mongoose.Schema({
 });
 var CategoryModel = db.model('Categories', CategorySchema);
 
+// 单条信息
+var EntrySchema = new mongoose.Schema({
+    category: {type:ObjectId, ref:'Categories'},
+    name: String,
+    meta: String,
+    desc: String,
+    url: String,
+    logo: String,
+    photos: [],
+    pv: {type: Number, default: 0},
+    comments: [{
+        user:{type:ObjectId, ref:'users'},   //用户名
+        content:String,
+        createAt:{type: Date, default:Date.now()}
+    }]
+});
+var EntryModel = db.model('entries', EntrySchema);
+
 //User 是模型
 exports.User = UserModel;
 exports.Article = ArticleModel;
 exports.Category = CategoryModel;
+exports.Entry = EntryModel;

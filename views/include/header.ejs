@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <base target="_blank">
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/common.css' />
 </head>
@@ -20,21 +21,21 @@
         <ul>
             <ul>
                 <% if(reqUrl == '/'){ %>
-                    <li class="current"><a href="/">首页</a></li>
+                    <li class="current"><a target="_self" href="/">首页</a></li>
                 <% }else{ %>
-                    <li><a href="/">首页</a></li>
+                    <li><a target="_self" href="/">首页</a></li>
                 <% } %>
                 <% for(var i = 0; i < categories.length; i++){ %>
                     <% if(categories[i].url == reqUrl){ %>
-                            <li class="current"><a href="<%= categories[i].url %>"><%= categories[i].name %></a></li>
+                            <li class="current"><a target="_self" href="<%= categories[i].url %>"><%= categories[i].name %></a></li>
                     <% }else{ %>
-                            <li><a href="<%= categories[i].url %>"><%= categories[i].name %></a></li>
+                            <li><a target="_self"  href="<%= categories[i].url %>"><%= categories[i].name %></a></li>
                     <% } %>
                 <% } %>
                 <% if(reqUrl == "/about_helping"){ %>
-                <li class="current"><a href="/about_helping">帮助我们</a></li>
+                <li class="current"><a target="_self" href="/about_helping">帮助我们</a></li>
                 <% }else{ %>
-                <li><a href="/about_helping">帮助我们</a></li>
+                <li><a target="_self" href="/about_helping">帮助我们</a></li>
                 <% } %>
             </ul>
         </ul>

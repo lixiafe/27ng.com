@@ -1,0 +1,21 @@
+<%- include include/header %>
+
+<%- include include/banner %>
+
+<div id="wrapper">
+    <div class="content clearfix">
+        <div class="column" title="<%= title %>">
+            <dl>
+                <dt>
+                    <span><%= title %></span>
+                    <a target="_self" href="<%= reqUrl %>">more»</a>
+                </dt>
+                <% for(var i=0; i<entries.length; i++){ %>
+                <dd><a href="<%= entries[i]["url"] %>"><i><%= entries[i]["name"] %></i><span class="fr"><%= entries[i]["meta"] %></span></a></dd>
+                <% } %>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<%- include include/footer %>

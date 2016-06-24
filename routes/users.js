@@ -2,9 +2,14 @@ var express = require('express');
 var models = require('../models');
 var util = require('../util');
 var auth = require('../middleware/auth');
+var viewMap = require('./config').viewMap;
 
 //路由实例
 var router = express.Router();
+
+models.Category.find({}, function(error, categories){
+    res.render('index', {title: viewMap[i]["title"],categories: categories, reqUrl: viewMap[i]["url"]});
+});
 
 /* GET users listing. */
 router.get('/', auth.checkLogin, function(req, res, next) {
@@ -13,7 +18,9 @@ router.get('/', auth.checkLogin, function(req, res, next) {
 
 //注册
 router.get('/reg', auth.checkNotLogin, function(req, res, next) {
-  res.render('user/reg', { title: '注册 - 爱去宁国' });
+    models.Category.find({}, function(error, categories){
+        res.render('user/reg', { title: '注册 - 爱去宁国' });
+    });
 });
 
 router.get('/login', function(req, res, next) {
