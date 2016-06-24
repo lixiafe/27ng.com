@@ -18,19 +18,25 @@
 <div class="nav clearfix">
     <div class="w980">
         <ul>
-            <li><a href="/">首页</a></li>
-            <li><a href="/mingzhan">宁国名站</a></li>
-            <li><a href="/gouwu">购物指南</a></li>
-            <li><a href="/yule">娱乐休闲</a></li>
-            <li><a href="/meishi">餐饮美食</a></li>
-            <li><a href="/jiankang">健康美容</a></li>
-            <li><a href="/lvyou">旅游出行</a></li>
-            <li><a href="/shenghuo">生活服务</a></li>
-            <li><a href="/rencai">人才教育</a></li>
-            <li><a href="/fangchan">房产</a></li>
-            <li><a href="/qiye">企业之窗</a></li>
-            <li><a href="/zhengfu">政府之窗</a></li>
-            <li><a href="/about_helping">帮助我们</a></li>
+            <ul>
+                <% if(reqUrl == '/'){ %>
+                    <li class="current"><a href="/">首页</a></li>
+                <% }else{ %>
+                    <li><a href="/">首页</a></li>
+                <% } %>
+                <% for(var i = 0; i < categories.length; i++){ %>
+                    <% if(categories[i].url == reqUrl){ %>
+                            <li class="current"><a href="<%= categories[i].url %>"><%= categories[i].name %></a></li>
+                    <% }else{ %>
+                            <li><a href="<%= categories[i].url %>"><%= categories[i].name %></a></li>
+                    <% } %>
+                <% } %>
+                <% if(reqUrl == "/about_helping"){ %>
+                <li class="current"><a href="/about_helping">帮助我们</a></li>
+                <% }else{ %>
+                <li><a href="/about_helping">帮助我们</a></li>
+                <% } %>
+            </ul>
         </ul>
     </div>
 </div>
