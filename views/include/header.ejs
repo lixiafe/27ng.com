@@ -20,22 +20,12 @@
     <div class="w980">
         <ul>
             <ul>
-                <% if(reqUrl == '/'){ %>
-                    <li class="current"><a target="_self" href="/">首页</a></li>
-                <% }else{ %>
-                    <li><a target="_self" href="/">首页</a></li>
-                <% } %>
                 <% for(var i = 0; i < categories.length; i++){ %>
-                    <% if(categories[i].url == reqUrl){ %>
+                    <% if(categories[i].url == requrl){ %>
                             <li class="current"><a target="_self" href="<%= categories[i].url %>"><%= categories[i].name %></a></li>
                     <% }else{ %>
                             <li><a target="_self"  href="<%= categories[i].url %>"><%= categories[i].name %></a></li>
                     <% } %>
-                <% } %>
-                <% if(reqUrl == "/about_helping"){ %>
-                <li class="current"><a target="_self" href="/about_helping">帮助我们</a></li>
-                <% }else{ %>
-                <li><a target="_self" href="/about_helping">帮助我们</a></li>
                 <% } %>
             </ul>
         </ul>

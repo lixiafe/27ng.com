@@ -29,24 +29,29 @@ router.get('/list', auth.checkLogin, function(req, res, next) {
         queryObj = {$or: [{title: reg}, {content: reg}]};
     }
 
-    models.Article.find(queryObj).skip((pageNum-1)*pageSize).limit(pageSize).populate('user').exec(function(error, articles){
+    models.Category.find({}, null, {sort: {sort: 1}}, function (error, categories) {
+        models.Article.find(queryObj).skip((pageNum-1)*pageSize).limit(pageSize).populate('user').exec(function(error, articles){
 
-        articles.forEach(function(article){
-            article.content = markdown.toHTML(article.content);
-        });
+            articles.forEach(function(article){
+                article.content = markdown.toHTML(article.content);
+            });
 
-        //取得这个条件有多少条符合的数据
-        models.Article.count(queryObj, function(error, count){
-            res.render('article/list', {
-                title: '文章列表 - 爱去宁国',
-                articles: articles,
-                q: q,
-                totalPage: Math.ceil(count/pageSize),
-                pageNum: pageNum,
-                pageSize: pageSize
+            //取得这个条件有多少条符合的数据
+            models.Article.count(queryObj, function(error, count){
+                res.render('article/list', {
+                    categories: categories,
+                    requrl: '',
+                    title: '文章列表 - 爱去宁国',
+                    articles: articles,
+                    q: q,
+                    totalPage: Math.ceil(count/pageSize),
+                    pageNum: pageNum,
+                    pageSize: pageSize
+                });
             });
         });
     });
+
 });
 
 router.get('/post', auth.checkLogin, function(req, res, next) {
