@@ -19,15 +19,19 @@
 <div class="nav clearfix">
     <div class="w980">
         <ul>
-            <ul>
-                <% for(var i = 0; i < categories.length; i++){ %>
-                    <% if(categories[i].url == requrl){ %>
-                            <li class="current"><a target="_self" href="<%= categories[i].url %>"><%= categories[i].name %></a></li>
-                    <% }else{ %>
-                            <li><a target="_self"  href="<%= categories[i].url %>"><%= categories[i].name %></a></li>
-                    <% } %>
-                <% } %>
-            </ul>
+            <li <%if(url == "/"){%>class="current"<%}else{%>class=""<%}%>><a target="_self" href="/">首页</a></li>
+            <li <%if(url == "/mingzhan"){%>class="current"<%}else{%><%}%>><a target="_self" href="/mingzhan">宁国名站</a></li>
+            <li <%if(url == "/gouwu"){%>class="current"<%}else{%><%}%>><a target="_self" href="/gouwu">购物指南</a></li>
+            <li <%if(url == "/yule"){%>class="current"<%}else{%><%}%>><a target="_self" href="/yule">娱乐休闲</a></li>
+            <li <%if(url == "/meishi"){%>class="current"<%}else{%><%}%>><a target="_self" href="/meishi">餐饮美食</a></li>
+            <li <%if(url == "/jiankang"){%>class="current"<%}else{%><%}%>><a target="_self" href="/jiankang">健康美容</a></li>
+            <li <%if(url == "/lvyou"){%>class="current"<%}else{%><%}%>><a target="_self" href="/lvyou">旅游出行</a></li>
+            <li <%if(url == "/shenghuo"){%>class="current"<%}else{%><%}%>><a target="_self" href="/shenghuo">生活服务</a></li>
+            <li <%if(url == "/rencai"){%>class="current"<%}else{%><%}%>><a target="_self" href="/rencai">人才教育</a></li>
+            <li <%if(url == "/fangchan"){%>class="current"<%}else{%><%}%>><a target="_self" href="/fangchan">房产</a></li>
+            <li <%if(url == "/qiye"){%>class="current"<%}else{%><%}%>><a target="_self" href="/qiye">企业之窗</a></li>
+            <li <%if(url == "/zhengfu"){%>class="current"<%}else{%><%}%>><a target="_self" href="/zhengfu">政府之窗</a></li>
+            <li <%if(url == "/about_helping"){%>class="current"<%}else{%><%}%>><a target="_self" href="/about_helping">帮助我们</a></li>
         </ul>
     </div>
 </div>

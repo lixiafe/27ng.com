@@ -21,24 +21,30 @@ var viewMap = [
 /* GET home page. */
 // router.get('/', function(req, res, next) {
 // 	models.Category.find({}, null, {sort:{sort:1}}, function(error, categories){
-// 		res.render('index', {title: '爱去宁国',categories: categories, requrl: req.url});
+// 		console.log(req.path);
+// 		res.render('index', {title: '爱去宁国',categories: categories, url: req.path});
 // 	});
 // });
 
 for(let i = 0; i < viewMap.length; i++){
 	router.get(viewMap[i]["url"], function(req, res, next) {
-		if(req.url === '/' || req.url === '/contact'){
 			models.Category.find({}, null, {sort:{sort:1}}, function(error, categories){
-				res.render('index', {title: categories[i].name, categories: categories, requrl: req.url});
+				if(req.url === '/' || req.url === '/about_helping') {
+					res.render('index', {title: categories[i].name, categories: categories, url: req.path});
+				}else{
+					models.Entry.find({}, function(error, entries){
+						res.render('entry', {title: categories[i].name, entries: entries, url: req.path});
+					});
+				}
 			});
-		}else{
-			models.Category.find({}, null, {sort:{sort:1}}, function(error, categories){
-				models.Entry.find({}, function(error, entries){
-					res.render('entry', {title: categories[i].name, categories: categories, entries: entries, requrl: req.url});
-				});
-			});
-		}
 	});
 };
+
+
+// models.Category.find({}, null, {sort:{sort:1}}, function(error, categories){
+// 	models.Entry.find({}, function(error, entries){
+// 		res.render('entry', {title: categories[i].name, categories: categories, entries: entries, requrl: req.url});
+// 	});
+// });
 
 module.exports = router;

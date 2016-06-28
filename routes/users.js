@@ -14,13 +14,13 @@ router.get('/', auth.checkLogin, function(req, res, next) {
 //注册
 router.get('/reg', auth.checkNotLogin, function(req, res, next) {
     models.Category.find({}, null, {sort:{sort: 1}}, function(error, categories){
-        res.render('user/reg', { title: '注册 - 爱去宁国', categories:categories, requrl: ''});
+        res.render('user/reg', { title: '注册 - 爱去宁国', categories:categories, url: req.path});
     });
 });
 
 router.get('/login', function(req, res, next) {
     models.Category.find({}, null, {sort:{sort: 1}}, function(error, categories){
-        res.render('user/login', {title: '登录 - 爱去宁国', categories:categories, requrl: ''});
+        res.render('user/login', {title: '登录 - 爱去宁国', categories:categories,  url: req.path});
     });
 });
 
