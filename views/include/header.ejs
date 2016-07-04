@@ -11,8 +11,8 @@
 
 <div id="header">
     <div class="w980 clearfix">
-        <h1><a href="/" title="<%= title %>"><%= title %></a></h1>
-        <a class="contact" href="contact.html" title="联系我们"></a>
+        <h1><a target="_self" href="/" title="<%= title %>"><%= title %></a></h1>
+        <a target="_self" class="contact" href="/about_helping" title="联系我们"></a>
     </div>
 </div>
 
@@ -31,7 +31,7 @@
             <li <%if(url == "/fangchan"){%>class="current"<%}else{%><%}%>><a target="_self" href="/fangchan">房产</a></li>
             <li <%if(url == "/qiye"){%>class="current"<%}else{%><%}%>><a target="_self" href="/qiye">企业之窗</a></li>
             <li <%if(url == "/zhengfu"){%>class="current"<%}else{%><%}%>><a target="_self" href="/zhengfu">政府之窗</a></li>
-            <li <%if(url == "/about_helping"){%>class="current"<%}else{%><%}%>><a target="_self" href="/about_helping">帮助我们</a></li>
+            <li <%if(url == "/about_helping"){%>class="current"<%}else{%><%}%>><a target="_self" href="/about_helping">关于</a></li>
         </ul>
     </div>
 </div>

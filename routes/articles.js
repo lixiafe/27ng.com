@@ -46,7 +46,8 @@ router.get('/list', auth.checkLogin, function(req, res, next) {
                     q: q,
                     totalPage: Math.ceil(count/pageSize),
                     pageNum: pageNum,
-                    pageSize: pageSize
+                    pageSize: pageSize,
+                    url: req.url
                 });
             });
         });
@@ -55,7 +56,7 @@ router.get('/list', auth.checkLogin, function(req, res, next) {
 });
 
 router.get('/post', auth.checkLogin, function(req, res, next) {
-    res.render('article/add', { title: '发表文章', article: {} });
+    res.render('article/add', { title: '发表文章', article: {}, url: req.url });
 });
 
 router.post('/add', auth.checkLogin, upload.single('poster'), function(req, res, next) {

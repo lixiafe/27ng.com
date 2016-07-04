@@ -1,0 +1,24 @@
+<%- include ../include/header %>
+
+<div class="w980">
+    <form action="/categories/add" method="post">
+        <input type="text" name="name" value="" placeholder="二级分类名称">
+        <br>
+        <br>
+        <input type="text" name="url" value="" placeholder="链接">
+        <br>
+        <br>
+        <input type="text" name="meta" value="" placeholder="描述">
+        <br>
+        <br>
+        <%for(var i = 0; i < categories.length; i++){%>
+            <input name="parent" type="radio" data-name="<%= categories[i].name %>" value="<%= categories[i]._id %>"><span><%= categories[i].name %></span>
+        <%}%>
+        <br>
+        <br>
+        <input type="submit" value="增加">
+
+    </form>
+</div>
+
+<%- include ../include/footer %>

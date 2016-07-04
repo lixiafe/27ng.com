@@ -15,7 +15,7 @@ var viewMap = [
 	{'url': '/qiye'},
 	{'url': '/fangchan'},
 	{'url': '/zhengfu'},
-	{'url': '/contact'}
+	{'url': '/about_helping'}
 ];
 
 /* GET home page. */
@@ -28,15 +28,18 @@ var viewMap = [
 
 for(let i = 0; i < viewMap.length; i++){
 	router.get(viewMap[i]["url"], function(req, res, next) {
-			models.Category.find({}, null, {sort:{sort:1}}, function(error, categories){
-				if(req.url === '/' || req.url === '/about_helping') {
-					res.render('index', {title: categories[i].name, categories: categories, url: req.path});
-				}else{
-					models.Entry.find({}, function(error, entries){
-						res.render('entry', {title: categories[i].name, entries: entries, url: req.path});
-					});
-				}
-			});
+		models.Category.find({}, null, {sort:{sort:1}}, function(error, categories){
+			console.log(categories);
+			if(req.url === '/') {
+				res.render('index', {title: '首页 - 爱去宁国', categories: categories, url: req.path});
+			}else if(req.url === '/about_helping'){
+				res.render('index', {title: '关于 - 爱去宁国', categories: categories, url: req.path});
+			}else{
+				models.Entry.find({}, function(error, entries){
+					res.render('entry', {title: categories[i].name, entries: entries, url: req.path});
+				});
+			}
+		});
 	});
 };
 

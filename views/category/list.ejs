@@ -1,0 +1,20 @@
+<%- include ../include/header %>
+
+
+<div class="w980">
+    <ul>
+        <%
+        categories.forEach(function(category){
+        %>
+            <li>
+                <span>分类名称:<%= category.name %></span>
+                <span>分类链接:<%= category.url %></span>
+            </li>
+        <%
+        });
+        %>
+    </ul>
+</div>
+
+
+<%- include ../include/footer %>
