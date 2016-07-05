@@ -29,7 +29,6 @@ var viewMap = [
 for(let i = 0; i < viewMap.length; i++){
 	router.get(viewMap[i]["url"], function(req, res, next) {
 		models.Category.find({}, null, {sort:{sort:1}}, function(error, categories){
-			console.log(categories);
 			if(req.url === '/') {
 				res.render('index', {title: '首页 - 爱去宁国', categories: categories, url: req.path});
 			}else if(req.url === '/about_helping'){

@@ -1,15 +1,18 @@
 <div id="wrapper">
     <div class="content clearfix">
         <% for(var i = 0; i < categories.length; i++){ %>
-        <div class="column" title="<%= categories[i].name %>">
-            <dl>
-                <dt>
-                    <span><%= categories[i].name %></span>
-                    <a href="<%= categories[i].url %>">more&raquo;</a>
-                </dt>
-
-            </dl>
-        </div>
+            <div class="column" title="<%= categories[i].name %>">
+                <dl>
+                    <dt>
+                        <span><%= categories[i].name %></span>
+                        <a href="<%= categories[i].url %>">more&raquo;</a>
+                    </dt>
+                    <% for(var j = 0; j < categories[i].children.length; j++){ %>
+                        <dd><a href="<%= categories[i].children[j].url %>"><i><%= categories[i].children[j].name %></i><span class="fr"><%= categories[i].children[j].meta %></span></a></dd>
+                    <% } %>
+                </dl>
+            </div>
+            <%= categories[i].children.length %>
         <% } %>
     </div>
 </div>

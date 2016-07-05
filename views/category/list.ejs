@@ -2,13 +2,15 @@
 
 
 <div class="w980">
+    <br>
+    <h3 style="height: 30px;line-height: 30px;">二级分类全部</h3>
     <ul>
         <%
         categories.forEach(function(category){
         %>
             <li>
-                <span>分类名称:<%= category.name %></span>
-                <span>分类链接:<%= category.url %></span>
+                <span style="display: inline-block; height: 20px; line-height: 20px; font-size: 16px; margin-right: 20px;">分类名称:<%= category.name %></span>
+                <span style="display: inline-block; height: 20px; line-height: 20px; font-size: 16px;">分类链接:<%= category.url %></span>
             </li>
         <%
         });
